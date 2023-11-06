@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mallcustomersapp"
+version = "0.1.0"
+description = ""
+authors = ["GutesTod"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0"
+pandas = "^2.1.2"
+
+
+[tool.poetry.group.postgres.dependencies]
+psycopg2 = "^2.9.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
