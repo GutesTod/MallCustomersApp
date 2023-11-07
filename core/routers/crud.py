@@ -8,7 +8,7 @@ crud_router = APIRouter()
 async def create_data(data: MallCustomerModel):
     return {sql_api.insert_data_in_table(connector=connector_db, data=data) : sql_api.select_full_table(connector=connector_db)}
 
-@crud_router.post(path="/update")
+@crud_router.put(path="/update")
 async def update_data(id: int, data: str, data_value: Union[str, int]):
     return {sql_api.update_by_id(connector=connector_db, id=id, data=data, data_value=data_value) : sql_api.select_full_table(connector=connector_db)}
 
