@@ -105,17 +105,26 @@ class PostgreSQLConnector(AbstractConnector):
     def __init__(self, datastore : str):
         AbstractConnector.__init__(self, datastore)
         self._datastore = datastore[13:]
+        con_str_list = self._datastore.split(':')
+        self._user = con_str_list[0]
+        con_str_list = con_str_list[1].split('@')
+        self._password = con_str_list[0]
+        con_str_list = con_str_list[1].split('/')
+        self._host = con_str_list[0]
+        self._db = con_str_list[1]
         self._cursor = None
     
     def connect(self):
         try:
-            self.connection = pymysql.connect(host=self._host,
+            print(self._host, self._user, self._password, self._db)
+            self.connection = psycopg2.connect(host=self._host,
                                               user=self._user,
                                               password=self._password,
-                                              dbname=self._db,)
+                                              database=self._db,)
             print("SQLite database connected.")
             return True
         except Exception as e:
+            print(self._host, self._user, self._password, self._db)
             print(f'Connection error: {str(e)}')
             return False
     
@@ -131,11 +140,18 @@ class PostgreSQLConnector(AbstractConnector):
             print("Use start_transaction() first.")
         return result
     
+    def fetchall(self):
+        return self._cursor.fetchall()
+    
+    def fetchone(self):
+        return self._cursor.fetchone()
+    
     def start_transaction(self):
         if self._cursor is None and self.connection is not None:
             self._cursor = self.connection.cursor()
         else:
-            print(self.connection)
+            print(self._host, self._user, self._password, self._db)
+            print(f"Connection Error!: {self.connection}")
 
     def end_transaction(self):
         if self.connection is not None and self._cursor is not None:

@@ -12,6 +12,7 @@ class AbstractConnector(ABC):
                 "sqlite:///C:\\databases\\test.db" (полный путь до файла БД)
 
         MySQL: "pymysql://usr:qwerty@192.168.56.104/testdb"
+        PostgreSQL: "postgresql://user:password@localhost/dbname"
         """
         self._datastore = datastore   # путь к хранилищу данных (БД)
         self.connection = None       # данный атрибут хранит инициализированное в методе connect() подключение к БД

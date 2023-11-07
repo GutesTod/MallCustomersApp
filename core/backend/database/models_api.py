@@ -7,3 +7,4 @@ class MallCustomerModel(BaseModel):
     annual_income: int
     spending_score: int
     
+    
